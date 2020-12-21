@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header font-weight-bold">
+                        <h2>Aircraft {{ aircraft.aircraft_name }}</h2>
+                    </div>
+                    <form action="{% url 'edit_aircraft' aircraft.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+
+                                <div class="form-group">
+                                    <label for="aircraft_name" class="form-check-label"> Aircraft Name: </label>
+                                    <input id="aircraft_name" name="aircraft_name" type="text" class="form-control" value="{{ aircraft.aircraft_name }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="aircraft_type" class="form-check-label"> Aircraft Type:</label>
+                                    <input id="aircraft_type" name="aircraft_type" type="text" class="form-control" value="{{ aircraft.aircraft_type }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="aircraft_capacity" class="form-check-label"> Aircraft Capacity: </label>
+                                    <input id="aircraft_capacity" name="aircraft_capacity" type="text" class="form-control" value="{{ aircraft.aircraft_capacity }}">
+                                </div>
+
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <a href="{% url 'list_aircraft' %}" class="btn btn-danger btn-outline-info">Back</a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
