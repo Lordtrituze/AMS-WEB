@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 
-from app.models import Aircraft
 from app.Dto.AircraftDto import *
+from app.Dto.SelectDto import SelectAircraftDto
 from app.repositories.AircraftRepository import AircraftRepository
 
 
@@ -21,6 +21,10 @@ class AircraftManagementService(metaclass=ABCMeta):
 
     @abstractmethod
     def aircraft_details(self, aircraft_id: int) -> AircraftDetailsDto:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_aircraft_list(self) -> [SelectAircraftDto]:
         raise NotImplementedError
 
 
@@ -44,3 +48,6 @@ class DefaultAircraftManagementService(AircraftManagementService):
 
     def delete_aircraft(self, aircraft_id: int):
         return  self.repository.delete_aircraft(aircraft_id)
+
+    def get_aircraft_list(self) -> [SelectAircraftDto]:
+        return  self.repository.get_aircraft_list()

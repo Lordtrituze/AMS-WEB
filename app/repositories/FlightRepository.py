@@ -1,7 +1,7 @@
-
-from abc import ABCMeta, abstractmethod, ABC
+from abc import ABCMeta, abstractmethod
 from typing import List
 
+from app.Dto.SelectDto import SelectFlightDto
 from app.models import Flight
 from app.Dto.FlightDto import *
 
@@ -26,6 +26,14 @@ class FlightRepository(metaclass=ABCMeta):
 
     @abstractmethod
     def delete_flight(self, flight_id: int):
+        raise NotImplementedError
+
+    @abstractmethod
+    def search_flight(self, takeoff_location, destination, departure_date):
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_flight_list(self) -> [SelectFlightDto]:
         raise NotImplementedError
 
 
@@ -59,13 +67,14 @@ class DjangoORMFlightRepository(FlightRepository):
 
     def list_flight(self) -> List[ListFlightDto]:
         flights = list(
-            Flight.objects.values('aircraft__aircraft_name', 'takeoff_location', 'destination'))
+            Flight.objects.values('aircraft__aircraft_name', 'takeoff_location', 'destination', 'id'))
         results: List[ListFlightDto] = []
         for flight in flights:
             item = ListFlightDto()
             item.aircraft_name = flight['aircraft__aircraft_name']
             item.takeoff_location = flight['takeoff_location']
             item.destination = flight['destination']
+            item.id = flight['id']
             results.append(item)
         return results
 
@@ -81,6 +90,7 @@ class DjangoORMFlightRepository(FlightRepository):
             result.flight_number = flight.flight_number
             result.date_created = flight.date_created
             result.date_updated = flight.date_updated
+            result.price = flight.price
             result.id = flight.id
             return result
         except Flight.DoesNotExist as e:
@@ -91,3 +101,30 @@ class DjangoORMFlightRepository(FlightRepository):
             Flight.objects.get(id=flight_id).delete()
         except Flight.DoesNotExist as e:
             raise e
+
+    def search_flight(self, takeoff_location, destination, departure_date):
+        if departure_date is '':
+            flights = Flight.objects.filter(takeoff_location=takeoff_location, destination=destination)
+        else:
+            flights = Flight.objects.filter(takeoff_location=takeoff_location).filter(destination=destination).filter(
+                departure_date=departure_date)
+        results: List[SearchFlightDto] = []
+        for flight in flights:
+            item = SearchFlightDto()
+            item.takeoff_location = flight.takeoff_location
+            item.destination = flight.destination
+            item.departure_date = flight.departure_date
+            item.arrival_time = flight.arrival_time
+            item.id = flight.id
+            results.append(item)
+        return results
+
+    def get_flight_list(self) -> [SelectFlightDto]:
+        flights = list(Flight.objects.values('id', 'flight_number'))
+        result: List[SelectFlightDto] = []
+        for flight in flights:
+            item = SelectFlightDto()
+            item.id = flight['id']
+            item.aircraft_name = flight['flight_number']
+            result.append(item)
+        return result

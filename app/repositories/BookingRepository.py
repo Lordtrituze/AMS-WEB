@@ -1,7 +1,6 @@
 
-from abc import ABCMeta, abstractmethod, ABC
+from abc import ABCMeta, abstractmethod
 from typing import List
-
 from app.models import Booking
 from app.Dto.BookingDto import *
 

@@ -1,0 +1,51 @@
+{% extends "Passenger/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>{{ title }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover text-center">
+                            <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                            </thead>
+                            {% for passenger in passengers %}
+                                <tbody>
+                                <tr>
+                                    <td>{{ passenger.first_name }}</td>
+                                    <td>{{ passenger.last_name }}</td>
+                                    <td>{{ passenger.email }}</td>
+                                    <td>{{ passenger.phone }}</td>
+
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{% url 'passenger_details' passenger.id %}" class="btn btn-success"> Details</a>
+                                        </div>
+
+                                        <div class="btn-group">
+                                            <a href="{%  url 'edit_passenger' passenger.id %}" class="btn btn-warning"> Edit</a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="{% url 'delete_passenger' passenger.id %}" class="btn btn-danger"> Delete</a>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

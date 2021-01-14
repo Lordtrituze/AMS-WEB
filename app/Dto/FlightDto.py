@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, time
 
 
 class RegisterFlightDto:
@@ -6,7 +6,7 @@ class RegisterFlightDto:
     takeoff_location: str
     destination: str
     departure_date: date
-    arrival_time: date
+    arrival_time: time
     flight_number: str
     price: float
     date_created: date
@@ -17,8 +17,10 @@ class EditFlightDto:
     takeoff_location: str
     destination: str
     departure_date: date
-    arrival_time: date
+    arrival_time: time
     price: float
+    date_created: date
+    date_updated: date
 
 
 class ListFlightDto:
@@ -26,7 +28,7 @@ class ListFlightDto:
     takeoff_location: str
     destination: str
     departure_date: date
-    arrival_time: date
+    arrival_time: time
     flight_number: str
     price: float
     date_created: date
@@ -39,9 +41,17 @@ class FlightDetailsDto:
     takeoff_location: str
     destination: str
     departure_date: date
-    arrival_time: date
+    arrival_time: time
     flight_number: str
     price: float
     date_created: date
     date_updated: date
+    id: int
+
+
+class SearchFlightDto:
+    takeoff_location: str
+    destination: str
+    departure_date: date
+    arrival_time: time
     id: int

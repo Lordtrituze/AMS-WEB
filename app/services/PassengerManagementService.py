@@ -1,7 +1,5 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
-
-from app.models import Aircraft
 from app.Dto.PassengerDto import *
 from app.repositories.PassengerRepository import PassengerRepository
 

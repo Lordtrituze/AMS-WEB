@@ -1,3 +1,5 @@
+from datetime import date
+
 
 class RegisterBookingDto:
     flight_id: int
@@ -5,6 +7,7 @@ class RegisterBookingDto:
     flight_class: str
     price: float
     booking_reference: str
+    date_created: date
 
 
 class EditBookingDto:
@@ -12,6 +15,7 @@ class EditBookingDto:
     passenger_id: int
     flight_class: str
     price: float
+    id: int
 
 
 class ListBookingDto:
@@ -30,5 +34,7 @@ class BookingDetailsDto:
     price: float
     booking_reference: str
     id: int
+    date_created: date
+    date_updated: date
 
 

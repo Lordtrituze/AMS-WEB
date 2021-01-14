@@ -1,0 +1,75 @@
+{% extends 'Flight/base.html' %}\
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5 ">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            {{ title }}
+                        </h4>
+                        <div class="card-body">
+                                <div class="row">
+
+                                    <div class="form-group col-6">
+                                        <label class="form-check-label">Aircraft </label>
+                                        <label class="form-control">{{ flight.aircraft_name }}</label>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label class="form-check-label">Flight Number</label>
+                                        <label class="form-control">{{ flight.flight_number }}</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label class="form-check-label">Leaving from </label>
+                                        <label class="form-control">{{ flight.takeoff_location }}</label>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label class="form-check-label">Destination</label>
+                                        <label class="form-control">{{ flight.destination }}</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label class="form-check-label">Departure Date</label>
+                                        <label class="form-control">{{ flight.departure_date }}</label>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label class="form-check-label">Arrival Time</label>
+                                        <label class="form-control">{{ flight.arrival_time }}</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+                                        <label class="form-check-label">Date Created</label>
+                                        <label class="form-control">{{ flight.date_created }}</label>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label class="form-check-label">Date Updated</label>
+                                        <label class="form-control">{{ flight.date_updated }}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-check-label">Price</label>
+                                    <label class="form-control">{{ flight.price }}</label>
+                                </div>
+
+                                <div>
+                                    <a href="{% url 'list_flight' %}" class="button btn btn-primary btn-block text-light col-12">Back</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,18 +1,13 @@
 import datetime
 import uuid
-
-from django.contrib.auth.decorators import login_required
-
-from app.decorators import unauthenticated_user, allowed_users
-from app.models import Aircraft
-from app.Dto.AircraftDto import ListAircraftDto, AircraftDetailsDto, EditAircraftDto, RegisterAircraftDto
+from app.Dto.AircraftDto import EditAircraftDto, RegisterAircraftDto
 from django.http import Http404, HttpRequest
 from django.shortcuts import redirect, render
 from app.service_provider import app_service_provider
 
 
-@login_required(login_url='login_get')
-@allowed_users(['staffs'])
+# @login_required(login_url='login_get')
+# @allowed_users(['staffs'])
 def register_aircraft(request):
     context = {
         'title': 'Aircraft Registration'
@@ -49,8 +44,8 @@ def __create_aircraft_if_post_method(request, context):
         return context
 
 
-@login_required(login_url='login_get')
-@allowed_users(['staffs'])
+# @login_required(login_url='login_get')
+# @allowed_users(['staffs'])
 def list_aircraft(request):
     aircrafts = app_service_provider.aircraft_management_service().list_aircraft()
     context = {
@@ -59,9 +54,9 @@ def list_aircraft(request):
     }
     return render(request, 'Aircraft/list_aircraft.html', context)
 
-
-@login_required(login_url='login_get')
-@allowed_users(['staffs'])
+#
+# @login_required(login_url='login_get')
+# @allowed_users(['staffs'])
 def aircraft_details(request, aircraft_id: int):
     aircraft = app_service_provider.aircraft_management_service().aircraft_details(aircraft_id)
     context = {
@@ -70,9 +65,9 @@ def aircraft_details(request, aircraft_id: int):
     }
     return render(request, 'Aircraft/aircraft_details.html', context)
 
-
-@login_required(login_url='login_get')
-@allowed_users(['staffs'])
+#
+# @login_required(login_url='login_get')
+# @allowed_users(['staffs'])
 def edit_aircraft(request, aircraft_id: int):
     aircraft = __get_aircraft_or_rise_404(aircraft_id)
     context = {
@@ -121,8 +116,8 @@ def __get_aircraft_or_rise_404(aircraft_id: int):
         raise Http404('Aircraft Dose Not Exit')
 
 
-@login_required(login_url='login_get')
-@allowed_users(['staffs'])
+# @login_required(login_url='login_get')
+# @allowed_users(['staffs'])
 def delete_aircraft(request, aircraft_id):
     app_service_provider.aircraft_management_service().delete_aircraft(aircraft_id)
     return redirect('list_aircraft')

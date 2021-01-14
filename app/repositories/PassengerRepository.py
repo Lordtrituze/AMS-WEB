@@ -1,5 +1,5 @@
 
-from abc import ABCMeta, abstractmethod, ABC
+from abc import ABCMeta, abstractmethod
 from typing import List
 
 from django.contrib.auth.models import User
@@ -42,7 +42,7 @@ class DjangoORMPassengerRepository(PassengerRepository):
         user.first_name = model.first_name
         user.last_name = model.last_name
         user.save()
-        passenger.users = user
+        passenger.user = user
 
         passenger.save()
 
@@ -51,10 +51,21 @@ class DjangoORMPassengerRepository(PassengerRepository):
             passenger = Passenger.objects.get(id=passenger_id)
             passenger.phone = model.phone
             passenger.address = model.address
-            passenger.users.first_name = model.first_name
-            passenger.users.last_name = model.last_name
-            passenger.users.email = model.email
+            # passenger.save()
+            # user_id = passenger.user_id
+            # user = User.objects.get(id=user_id)
+            # user.first_name = model.first_name
+            # user.last_name = model.last_name
+            # user.email = model.email
+            # user.username = model.username
+            # user.save()
+            passenger.user.first_name = model.first_name
+            passenger.user.last_name = model.last_name
+            passenger.user.username = model.username
+            passenger.user.email = model.email
+            passenger.user.save()
             passenger.save()
+
         except Passenger.DoesNotExist as e:
             message = "Passenger Does not exist"
             print(message)
@@ -62,13 +73,15 @@ class DjangoORMPassengerRepository(PassengerRepository):
 
     def list_passenger(self) -> List[ListPassengerDto]:
         passenger = list(
-            Passenger.objects.values('users__first_name', 'users__last_name', 'users__email'))
+            Passenger.objects.values('id', 'user__first_name', 'user__last_name', 'user__email', 'phone'))
         results: List[ListPassengerDto] = []
         for person in passenger:
             item = ListPassengerDto()
-            item.first_name = person['users__first_name']
-            item.last_name = person['users__last_name']
-            item.email = person['users__email']
+            item.first_name = person['user__first_name']
+            item.last_name = person['user__last_name']
+            item.email = person['user__email']
+            item.phone = person['phone']
+            item.id = person['id']
             results.append(item)
         return results
 
@@ -76,9 +89,10 @@ class DjangoORMPassengerRepository(PassengerRepository):
         try:
             passenger = Passenger.objects.get(id=passenger_id)
             result = PassengerDetailsDto()
-            result.first_name = passenger.users.first_name
-            result.last_name = passenger.users.last_name
-            result.email = passenger.users.email
+            result.first_name = passenger.user.first_name
+            result.last_name = passenger.user.last_name
+            result.username = passenger.user.username
+            result.email = passenger.user.email
             result.phone = passenger.phone
             result.address = passenger.address
             result.reg_no = passenger.reg_no

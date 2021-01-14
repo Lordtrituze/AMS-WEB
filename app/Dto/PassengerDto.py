@@ -14,11 +14,10 @@ class RegisterPassengerDto:
 class EditPassengerDto:
     first_name: str
     last_name: str
+    username: str
     email: str
     phone: int
     address: str
-    password: str
-    confirm_password: str
 
 
 class ListPassengerDto:
@@ -34,6 +33,7 @@ class ListPassengerDto:
 class PassengerDetailsDto:
     first_name: str
     last_name: str
+    username: str
     email: str
     phone: int
     address: str

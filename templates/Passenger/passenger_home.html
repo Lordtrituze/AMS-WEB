@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Passenger View</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'app/css/bootstrap.min.css' %}">
+    </head>
+    <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Passenger</h5>
+                        <p class="card-text">Register Passenger, edit passenger details, view passenger details or delete passenger here</p>
+                        <a href="#" class="btn btn-primary">Passenger Page</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Booking</h5>
+                        <p class="card-text">Book a flight here, search for flights, view bookings, edit booking, or delete booking here</p>
+                        <a href="#" class="btn btn-primary">Booking Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'app/js/jquery.js' %}"></script>
+    <script src="{% static 'app/js/bootstrap.bundle.min.js' %}"></script>
+    </body>
+</html>

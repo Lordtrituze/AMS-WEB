@@ -16,7 +16,7 @@ def login_page_post(request):
         if user.groups.filter(name__exact="staffs").exists():
             return redirect("register_aircraft")
         elif user.groups.filter(name__exact="passengers").exists():
-            return redirect("register_aircraft")
+            return redirect("register_passenger")
     else:
         context['message'] = 'username or password incorrect'
     return render(request, 'login.html', context)

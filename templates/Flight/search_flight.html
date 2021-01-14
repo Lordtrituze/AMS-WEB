@@ -1,0 +1,127 @@
+{% extends 'Flight/base.html' %}
+{% block content %}
+    <div class="container">
+
+            {% if flights %}
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>  Search Flight  </h3>
+                            </div>
+                            <div class="card-body">
+                                <form action="{% url 'search_flight' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                            <div class="form-group col-6">
+                                                <label for="takeoff_location" class="form-check-label"> Leaving From </label>
+                                                <input name="takeoff_location" class="form-control"
+                                                       value="{{ flight.takeoff_location }}" id="takeoff_location">
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                <label for="destination" class="form-check-label">Going To</label>
+                                                <input name="destination" class="form-control"
+                                                       value="{{ flight.destination }}" id="destination">
+                                            </div>
+
+                                        <div class="form-group col-12">
+                                            <label for="departure_date" class="form-check-label">Date of Departure </label>
+                                            <input name="departure_date" class="form-control"
+                                                   value="{{ flight.departure_date }}" id="departure_date" type="date">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <input type="submit" class="button btn btn-primary btn-block text-light"
+                                               value="Submit">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-center">Airline Management System &#169; 2020</div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="text-center"> Flights</h2>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-hover text-center">
+                                    <thead>
+                                    <tr>
+                                        <th>Take-Off Location</th>
+                                        <th>Destination</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    {% for flight in flights %}
+                                        <tbody>
+                                        <tr>
+                                            <td>{{ flight.takeoff_location }}</td>
+                                            <td>{{ flight.destination }}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="{% url 'flight_details' flight.id %}" class="btn btn-success">
+                                                        Details</a>
+                                                </div>
+
+                                                <div class="btn-group">
+                                                    <a href="{% url 'edit_flight' flight.id %}" class="btn btn-warning">
+                                                        Edit</a>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <a href="{% url 'delete_flight' flight.id %}" class="btn btn-danger">
+                                                        Delete</a>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                    <div class="col-6 mr-auto ml-auto">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>  Search Flight  </h3>
+                            </div>
+                            <div class="card-body">
+                                <form action="{% url 'search_flight' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                            <div class="form-group col-6">
+                                                <label for="takeoff_location" class="form-check-label"> Leaving From </label>
+                                                <input name="takeoff_location" class="form-control"
+                                                       value="{{ flight.takeoff_location }}" id="takeoff_location">
+                                            </div>
+
+                                            <div class="form-group col-6">
+                                                <label for="destination" class="form-check-label">Going To</label>
+                                                <input name="destination" class="form-control"
+                                                       value="{{ flight.destination }}" id="destination">
+                                            </div>
+
+                                        <div class="form-group col-12">
+                                            <label for="departure_date" class="form-check-label">Date of Departure </label>
+                                            <input name="departure_date" class="form-control"
+                                                   value="{{ flight.departure_date }}" id="departure_date" type="date">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <input type="submit" class="button btn btn-primary btn-block text-light"
+                                               value="Submit">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-center">Airline Management System &#169; 2020</div>
+                        </div>
+                    </div>
+            {% endif %}
+    </div>
+{% endblock %}
